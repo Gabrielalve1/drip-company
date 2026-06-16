@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRIP COMPANY — Streetwear</title>
+<meta name="description" content="DRIP COMPANY — Integre seus criativos. Streetwear autoral, edição limitada.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=Archivo:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0a;--bg2:#111;--fg:#fff;--muted:#8a8a8a;--blue:#2b5fff;--blue2:#4d7bff;--line:#1f1f1f}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px}
+
+.announce{background:#000;color:#fff;font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:9px 16px;font-weight:600;border-bottom:1px solid var(--line);overflow:hidden}
+.announce span{display:inline-block;white-space:nowrap;animation:marq 18s linear infinite}
+@keyframes marq{0%{transform:translateX(40%)}100%{transform:translateX(-100%)}}
+
+header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav .logo img{height:30px}
+.nav-links{display:flex;gap:30px;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.nav-links a{color:#ccc;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-ico{display:flex;gap:18px;align-items:center}
+.nav-ico svg{width:21px;height:21px;stroke:#fff;cursor:pointer}
+.cart-c{position:relative}
+.cart-badge{position:absolute;top:-7px;right:-8px;background:var(--blue);color:#fff;font-size:10px;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.burger{display:none}
+
+.hero{position:relative;height:90vh;min-height:580px;display:flex;align-items:flex-end;overflow:hidden;background:#000}
+.hero img,.hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.78}
+.hero-vid{z-index:0}
+.hero-fallback{z-index:-1}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 35%,rgba(0,0,0,.88) 100%)}
+.hero-c{position:relative;z-index:2;padding:0 24px 60px;max-width:1280px;margin:0 auto;width:100%}
+.hero .kick{color:#fff;font-size:13px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.hero .kick b{color:var(--blue2)}
+.hero h1{font-family:'Anton',sans-serif;font-size:clamp(48px,11vw,130px);line-height:.9;letter-spacing:-.01em;text-transform:uppercase}
+.hero h1 em{font-style:italic;color:var(--blue2)}
+.hero p{margin:16px 0 26px;color:#cfcfcf;font-size:15px;max-width:440px;font-weight:500}
+.btn{display:inline-flex;align-items:center;gap:9px;background:#fff;color:#000;padding:15px 32px;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;transition:.2s;cursor:pointer;border:none}
+.btn:hover{background:var(--blue);color:#fff;transform:translateY(-2px)}
+.btn.outline{background:transparent;color:#fff;border:1.5px solid #fff}
+.btn.outline:hover{background:#fff;color:#000}
+
+.strip{background:var(--blue);color:#fff;padding:13px 0;overflow:hidden;border-top:1px solid #000;border-bottom:1px solid #000}
+.strip-in{display:flex;white-space:nowrap;animation:marq2 24s linear infinite;font-family:'Archivo',sans-serif;font-weight:900;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+.strip-in span{padding-right:40px}
+@keyframes marq2{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.grid .card{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.grid .card.in{opacity:1;transform:none}
+
+.cats{padding:40px 0 8px}
+.cats-row{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.cats-row::-webkit-scrollbar{display:none}
+.cat-pill{flex:0 0 auto;padding:12px 26px;border:1px solid var(--line);border-radius:40px;font-weight:700;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:#ddd;transition:.2s;cursor:pointer;background:var(--bg2)}
+.cat-pill:hover,.cat-pill.on{background:#fff;color:#000;border-color:#fff}
+
+.sec{padding:48px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px}
+.sec-head h2{font-family:'Anton',sans-serif;font-size:clamp(28px,6vw,52px);text-transform:uppercase;line-height:1;letter-spacing:-.01em}
+.sec-head a{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--muted);padding-bottom:3px;cursor:pointer}
+.sec-head a:hover{color:#fff;border-color:#fff}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{position:relative;cursor:pointer}
+.card .ph{position:relative;aspect-ratio:3/4;background:#fff;border-radius:4px;overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:contain;transition:transform .5s ease}
+.card:hover .ph img{transform:scale(1.03)}
+.tag{position:absolute;top:10px;left:10px;background:#000;color:#fff;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:2px;z-index:2}
+.tag.sale{background:var(--blue)}
+.add{position:absolute;left:10px;right:10px;bottom:10px;height:42px;background:#fff;color:#000;border-radius:4px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;opacity:0;transform:translateY(10px);transition:.25s;z-index:2}
+.card:hover .add{opacity:1;transform:translateY(0)}
+.add:hover{background:var(--blue);color:#fff}
+.add:hover svg{stroke:#fff}
+.add svg{width:15px;height:15px;stroke:#000}
+.card .info{padding:13px 2px 0}
+.card .info .ct{font-size:10px;color:var(--blue2);font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.card .info h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1.3}
+.card .info .price{margin-top:6px;font-size:14px;font-weight:700;display:flex;gap:8px;align-items:center}
+.card .info .old{color:var(--muted);text-decoration:line-through;font-weight:500;font-size:12px}
+
+.edito{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:520px}
+.edito.rev .img{order:2}
+.edito .img{position:relative;overflow:hidden;background:#000}
+.edito .img img{width:100%;height:100%;object-fit:contain;min-height:320px;background:#fff}
+.edito .txt{background:var(--bg2);display:flex;flex-direction:column;justify-content:center;padding:60px 56px}
+.edito .txt .kick{color:var(--blue2);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+.edito .txt h2{font-family:'Anton',sans-serif;font-size:clamp(34px,5vw,60px);text-transform:uppercase;line-height:.95;margin-bottom:18px}
+.edito .txt p{color:#bbb;font-size:15px;line-height:1.7;margin-bottom:28px;max-width:440px}
+
+.collab{position:relative;height:440px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;background:#05070f}
+.collab img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%;opacity:.42}
+.collab::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,rgba(43,95,255,.28) 0%,rgba(5,7,15,.5) 55%,rgba(5,7,15,.9) 100%);z-index:1}
+.collab .c{position:relative;z-index:2}
+.collab .c span{color:var(--blue2);font-weight:800;letter-spacing:.16em;font-size:13px;text-transform:uppercase}
+.collab .c h2{font-family:'Anton',sans-serif;font-size:clamp(36px,8vw,84px);text-transform:uppercase;line-height:.95;margin:12px 0 22px}
+
+.feats{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.feats-row{display:grid;grid-template-columns:repeat(4,1fr)}
+.feat{padding:32px 24px;text-align:center;border-right:1px solid var(--line)}
+.feat:last-child{border-right:none}
+.feat svg{width:26px;height:26px;stroke:var(--blue2);margin:0 auto 12px;display:block}
+.feat h4{font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:5px}
+.feat p{font-size:12px;color:var(--muted)}
+
+.news{padding:72px 0;text-align:center}
+.news h2{font-family:'Anton',sans-serif;font-size:clamp(30px,6vw,56px);text-transform:uppercase;line-height:1;margin-bottom:12px}
+.news p{color:var(--muted);margin-bottom:28px;font-size:14px}
+.news form{display:flex;max-width:440px;margin:0 auto;border:1px solid #333;border-radius:3px;overflow:hidden}
+.news input{flex:1;background:#000;border:none;color:#fff;padding:16px 18px;font-size:14px;outline:none}
+.news button{background:#fff;color:#000;border:none;padding:0 28px;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.news button:hover{background:var(--blue);color:#fff}
+
+footer{background:#000;border-top:1px solid var(--line);padding:56px 0 28px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px}
+.foot-logo img{height:34px;margin-bottom:18px}
+.foot-brand p{color:var(--muted);font-size:13px;line-height:1.7;max-width:280px}
+.foot-col h5{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;color:#fff}
+.foot-col a{display:block;color:var(--muted);font-size:13px;margin-bottom:11px;transition:.2s;cursor:pointer}
+.foot-col a:hover{color:#fff}
+.foot-bot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:24px;flex-wrap:wrap;gap:12px}
+.foot-bot p{color:#666;font-size:12px}
+.socials{display:flex;gap:14px}
+.socials a svg{width:18px;height:18px;stroke:#999;transition:.2s}
+.socials a:hover svg{stroke:#fff}
+
+.wa{position:fixed;bottom:22px;right:22px;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:200;box-shadow:0 6px 22px rgba(0,0,0,.4);transition:transform .2s}
+.wa:hover{transform:scale(1.08)}
+.wa svg{width:30px;height:30px;fill:#fff}
+
+.demo-badge{position:fixed;top:8px;left:8px;z-index:300;background:var(--blue);color:#fff;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 11px;border-radius:30px;opacity:.92}
+
+/* toast */
+.toast{position:fixed;bottom:90px;right:22px;background:#fff;color:#000;padding:13px 20px;border-radius:4px;font-size:13px;font-weight:700;z-index:300;transform:translateX(140%);transition:.35s;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.toast.show{transform:translateX(0)}
+/* ===== carrinho drawer ===== */
+.cart-c{cursor:pointer}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.3s;z-index:400}
+.cart-overlay.show{opacity:1;visibility:visible}
+.cart-drawer{position:fixed;top:0;right:0;height:100%;width:400px;max-width:90vw;background:#0e0e0e;border-left:1px solid rgba(255,255,255,.08);z-index:401;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1)}
+.cart-drawer.show{transform:translateX(0)}
+.cd-head{display:flex;align-items:center;justify-content:space-between;padding:22px 22px 18px;border-bottom:1px solid rgba(255,255,255,.08)}
+.cd-head h3{font-size:16px;font-weight:800;letter-spacing:.5px}
+.cd-x{background:none;border:none;color:#fff;font-size:30px;line-height:1;cursor:pointer;opacity:.7}
+.cd-x:hover{opacity:1}
+.cd-body{flex:1;overflow-y:auto;padding:8px 22px}
+.cd-empty{text-align:center;color:#888;font-size:14px;padding:60px 10px}
+.cd-item{display:flex;gap:13px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.cd-item img{width:62px;height:80px;object-fit:contain;border-radius:5px;background:#fff}
+.cd-it-info{flex:1;min-width:0}
+.cd-it-info h4{font-size:13px;font-weight:700;line-height:1.3;margin-bottom:3px}
+.cd-it-info .ct{font-size:11px;color:#777;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.cd-it-info .pr{font-size:13px;font-weight:800;color:var(--blue)}
+.cd-qty{display:flex;align-items:center;gap:10px;margin-top:8px}
+.cd-qty button{width:24px;height:24px;border:1px solid rgba(255,255,255,.2);background:none;color:#fff;border-radius:5px;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.cd-qty button:hover{background:rgba(255,255,255,.1)}
+.cd-qty span{font-size:13px;font-weight:700;min-width:16px;text-align:center}
+.cd-rm{background:none;border:none;color:#666;font-size:11px;cursor:pointer;margin-left:auto;text-decoration:underline}
+.cd-rm:hover{color:#e55}
+.cd-foot{padding:18px 22px 22px;border-top:1px solid rgba(255,255,255,.08)}
+.cd-foot.hide{display:none}
+.cd-total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.cd-total span{font-size:13px;color:#aaa}
+.cd-total strong{font-size:21px;font-weight:800}
+.cd-wa{display:flex;align-items:center;justify-content:center;gap:9px;background:#25D366;color:#fff;font-weight:800;font-size:14px;padding:15px;border-radius:8px;text-decoration:none;transition:.2s}
+.cd-wa:hover{filter:brightness(1.08)}
+.cd-wa svg{width:20px;height:20px}
+.cd-note{font-size:11px;color:#777;text-align:center;margin-top:10px}
+@media(max-width:480px){.cart-drawer{width:100%;max-width:100%}}
+
+/* ===== PRODUCT MODAL (quick view) ===== */
+.pm-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:.3s;z-index:500;display:flex;align-items:center;justify-content:center;padding:24px}
+.pm-ov.show{opacity:1;visibility:visible}
+.pm{background:#0e0e0e;border:1px solid rgba(255,255,255,.08);border-radius:8px;width:920px;max-width:100%;max-height:92vh;overflow:auto;display:grid;grid-template-columns:1fr 1fr;transform:scale(.96);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.pm-ov.show .pm{transform:scale(1)}
+.pm-img{background:#fff;display:flex;align-items:center;justify-content:center;min-height:420px;position:relative}
+.pm-img img{width:100%;height:100%;object-fit:contain;max-height:560px}
+.pm-info{padding:38px 36px;position:relative}
+.pm-x{position:absolute;top:16px;right:16px;width:34px;height:34px;border:none;background:rgba(255,255,255,.06);color:#fff;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.pm-x:hover{background:rgba(255,255,255,.14)}
+.pm-sku{font-size:11px;color:var(--muted);letter-spacing:.06em;margin-bottom:14px}
+.pm-name{font-family:'Anton',sans-serif;font-size:clamp(26px,3.4vw,38px);text-transform:uppercase;line-height:1;letter-spacing:-.01em;margin-bottom:14px}
+.pm-price{font-size:22px;font-weight:700;display:flex;gap:10px;align-items:center;margin-bottom:26px}
+.pm-price .old{color:var(--muted);text-decoration:line-through;font-weight:500;font-size:16px}
+.pm-lbl{font-size:12px;color:#999;font-weight:700;letter-spacing:.04em;margin-bottom:10px;text-transform:capitalize}
+.pm-sizes{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.pm-sz{min-width:48px;height:46px;padding:0 12px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#fff;font-size:13px;font-weight:600;border-radius:3px;cursor:pointer;transition:.18s}
+.pm-sz:hover{border-color:#fff}
+.pm-sz.on{background:#fff;color:#000;border-color:#fff}
+.pm-sz.off{opacity:.32;cursor:not-allowed;text-decoration:line-through}
+.pm-colors{display:flex;gap:8px;margin-bottom:30px}
+.pm-cl{padding:0 18px;height:42px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#fff;font-size:12px;font-weight:700;letter-spacing:.04em;border-radius:3px;cursor:pointer;transition:.18s}
+.pm-cl.on{background:#fff;color:#000}
+.pm-add{width:100%;height:54px;background:var(--blue);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s}
+.pm-add:hover{background:#1d4ddb}
+.pm-add svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2}
+.pm-perks{display:flex;gap:20px;margin-top:22px;border-top:1px solid rgba(255,255,255,.08);padding-top:20px}
+.pm-perk{flex:1;text-align:center}
+.pm-perk svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:1.6;margin-bottom:8px}
+.pm-perk span{display:block;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#ccc;line-height:1.4}
+.pm-warn{font-size:12px;color:#ff6b6b;margin-top:10px;min-height:16px}
+@media(max-width:760px){.pm{grid-template-columns:1fr;max-height:94vh}.pm-img{min-height:300px}.pm-info{padding:28px 24px}}
+
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .edito,.edito.rev{grid-template-columns:1fr}
+  .edito.rev .img{order:0}
+  .edito .txt{padding:44px 28px}
+  .feats-row{grid-template-columns:repeat(2,1fr)}
+  .feat:nth-child(2){border-right:none}
+  .feat:nth-child(1),.feat:nth-child(2){border-bottom:1px solid var(--line)}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .foot-brand{grid-column:1/-1}
+  .nav-links{display:none}
+  .burger{display:block}
+}
+@media(max-width:520px){
+  .wrap{padding:0 16px}
+  .hero{height:86vh;min-height:560px}
+  .hero-c{padding:0 18px 44px}
+  .hero p{font-size:14px;margin:14px 0 22px}
+  .hero .btn{padding:14px 26px;font-size:12px}
+  .sec{padding:36px 0}
+  .sec-head{margin-bottom:18px}
+  .sec-head h2{font-size:24px}
+  .grid{gap:14px}
+  .card .info{padding:11px 0 0}
+  .card .info h3{font-size:12px}
+  .cats{padding:28px 0 4px}
+  .edito .txt{padding:38px 22px}
+  .edito .txt h2{font-size:38px}
+  .collab .c{padding:0 22px}
+  .news{padding:54px 0}
+  .news form{flex-direction:column;border:none;gap:10px}
+  .news input{border:1px solid #333;border-radius:3px}
+  .news button{padding:15px;border-radius:3px}
+  footer{padding:44px 0 24px}
+  .cd-head,.cd-body,.cd-foot{padding-left:18px;padding-right:18px}
+}
+</style>
+</head>
+<body>
+
+<div class="announce"><span>10% OFF NA PRIMEIRA COMPRA · CUPOM DRIP10 &nbsp;·&nbsp; FRETE GRÁTIS ACIMA DE R$499 &nbsp;·&nbsp; NOVA COLEÇÃO DISPONÍVEL &nbsp;·&nbsp; INTEGRE SEUS CRIATIVOS</span></div>
+
+<header>
+  <div class="wrap nav">
+    <svg class="burger" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <a href="#" class="logo"><img src="assets/img/logo.png" alt="DRIP COMPANY"></a>
+    <nav class="nav-links">
+      <a href="#novidades">Novidades</a>
+      <a href="#destaques">Destaques</a>
+      <a href="#colecao">Coleção</a>
+      <a href="#outlet">Outlet</a>
+    </nav>
+    <div class="nav-ico">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <div class="cart-c" onclick="openCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" id="cartCount">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <img src="assets/img/hero1.jpg" alt="DRIP COMPANY">
+  <div class="hero-c">
+    <div class="kick"><b>★</b> Integre seus criativos</div>
+    <h1>DRIP<br><em>COMPANY</em></h1>
+    <p>Streetwear autoral de edição limitada. Peças feitas pra quem cria e veste atitude.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="#novidades" class="btn">Comprar agora</a>
+      <a href="#outlet" class="btn outline">Ver outlet</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip"><div class="strip-in" id="strip"></div></div>
+
+<div class="wrap cats">
+  <div class="cats-row" id="cats">
+    <div class="cat-pill on" data-c="all">Todos</div>
+    <div class="cat-pill" data-c="tshirt">T-Shirts</div>
+    <div class="cat-pill" data-c="jeans">Jeans</div>
+    <div class="cat-pill" data-c="short">Shorts</div>
+    <div class="cat-pill" data-c="colete">Coletes</div>
+  </div>
+</div>
+
+<section class="wrap sec" id="novidades">
+  <div class="sec-head"><h2>Novidades</h2><a>Ver tudo →</a></div>
+  <div class="grid" id="gridNew"></div>
+</section>
+
+<section class="edito" id="destaques">
+  <div class="img"><img src="assets/img/hero2.jpg" alt=""></div>
+  <div class="txt">
+    <div class="kick">Coleção Signature</div>
+    <h2>Integre<br>seus criativos</h2>
+    <p>Cada peça da Drip Company carrega identidade. Cortes oversized, lavagens exclusivas e a assinatura da marca em destaque. Streetwear feito pra durar e marcar presença.</p>
+    <a href="#colecao" class="btn">Explorar coleção</a>
+  </div>
+</section>
+
+<section class="wrap sec" id="colecao">
+  <div class="sec-head"><h2>Mais vendidos</h2><a>Ver tudo →</a></div>
+  <div class="grid" id="gridTop"></div>
+</section>
+
+<section class="collab" id="outlet">
+  <img src="assets/img/n10.jpg" alt="">
+  <div class="c">
+    <span>Edição especial · até 30% OFF</span>
+    <h2>OUTLET<br>DRIP</h2>
+    <a href="#colecao2" class="btn">Ver ofertas</a>
+  </div>
+</section>
+
+<section class="wrap sec" id="colecao2">
+  <div class="sec-head"><h2>Outlet · Ofertas</h2><a>Ver tudo →</a></div>
+  <div class="grid" id="gridSale"></div>
+</section>
+
+<div class="feats">
+  <div class="wrap feats-row">
+    <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><h4>Frete Grátis</h4><p>Acima de R$499</p></div>
+    <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><h4>Atendimento</h4><p>Suporte no WhatsApp</p></div>
+    <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M1 4h22v16H1z"/><path d="M1 10h22"/></svg><h4>Pague em até 12x</h4><p>No cartão de crédito</p></div>
+    <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg><h4>Troca Fácil</h4><p>7 dias para trocar</p></div>
+  </div>
+</div>
+
+<section class="wrap news">
+  <h2>Fique por dentro</h2>
+  <p>Cadastre-se e receba 10% OFF na primeira compra + lançamentos em primeira mão.</p>
+  <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Pronto ✓'">
+    <input type="email" placeholder="Seu melhor e-mail" required>
+    <button type="submit">Assinar</button>
+  </form>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="foot-logo"><img src="assets/img/logo.png" alt="DRIP COMPANY"></div>
+        <p>Integre seus criativos. Streetwear autoral com design exclusivo e peças de edição limitada.</p>
+      </div>
+      <div class="foot-col"><h5>Loja</h5><a>Novidades</a><a>Destaques</a><a>Coleção</a><a>Outlet</a></div>
+      <div class="foot-col"><h5>Ajuda</h5><a>Trocas e devoluções</a><a>Frete e prazos</a><a>Guia de tamanhos</a><a>Rastrear pedido</a></div>
+      <div class="foot-col"><h5>Contato</h5><a href="https://wa.me/5516981265269" target="_blank">WhatsApp</a><a>Instagram</a><a>E-mail</a></div>
+    </div>
+    <div class="foot-bot">
+      <p>© 2026 DRIP COMPANY. Todos os direitos reservados.</p>
+      <div class="socials">
+        <a><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#999" stroke="none"/></svg></a>
+        <a href="https://wa.me/5516981265269" target="_blank"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.04 4C9.93 4 4.97 8.96 4.97 15.07c0 1.95.51 3.86 1.48 5.55L4.9 28l7.56-1.98a11.03 11.03 0 0 0 3.57.59h.01c6.11 0 11.07-4.96 11.07-11.07S22.15 4 16.04 4zm0 20.27h-.01a9.2 9.2 0 0 1-4.68-1.28l-.34-.2-3.48.91.93-3.39-.22-.35a9.16 9.16 0 0 1-1.41-4.89c0-5.08 4.13-9.21 9.22-9.21 2.46 0 4.78.96 6.52 2.7a9.16 9.16 0 0 1 2.7 6.52c0 5.08-4.13 9.21-9.22 9.21zm5.05-6.9c-.28-.14-1.64-.81-1.89-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.21-.6.07-.28-.14-1.17-.43-2.23-1.38-.82-.74-1.38-1.64-1.54-1.92-.16-.28-.02-.43.12-.57.12-.12.28-.32.41-.48.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.47-.62-.48l-.53-.01c-.18 0-.48.07-.73.35-.25.28-.96.94-.96 2.3s.98 2.66 1.12 2.85c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.56.58.66.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5516981265269?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20a%20Drip%20Company" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16.04 4C9.93 4 4.97 8.96 4.97 15.07c0 1.95.51 3.86 1.48 5.55L4.9 28l7.56-1.98a11.03 11.03 0 0 0 3.57.59h.01c6.11 0 11.07-4.96 11.07-11.07S22.15 4 16.04 4zm0 20.27h-.01a9.2 9.2 0 0 1-4.68-1.28l-.34-.2-3.48.91.93-3.39-.22-.35a9.16 9.16 0 0 1-1.41-4.89c0-5.08 4.13-9.21 9.22-9.21 2.46 0 4.78.96 6.52 2.7a9.16 9.16 0 0 1 2.7 6.52c0 5.08-4.13 9.21-9.22 9.21zm5.05-6.9c-.28-.14-1.64-.81-1.89-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.21-.6.07-.28-.14-1.17-.43-2.23-1.38-.82-.74-1.38-1.64-1.54-1.92-.16-.28-.02-.43.12-.57.12-.12.28-.32.41-.48.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.47-.62-.48l-.53-.01c-.18 0-.48.07-.73.35-.25.28-.96.94-.96 2.3s.98 2.66 1.12 2.85c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.56.58.66.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z"/></svg>
+</a>
+
+<div class="toast" id="toast">Adicionado ao carrinho ✓</div>
+
+<!-- ===== CARRINHO ===== -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<!-- PRODUCT QUICK VIEW MODAL -->
+<div class="pm-ov" id="pmOv" onclick="if(event.target===this)closeProd()">
+  <div class="pm" id="pmBox"></div>
+</div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Carrinho">
+  <div class="cd-head">
+    <h3>Seu carrinho</h3>
+    <button class="cd-x" onclick="closeCart()" aria-label="Fechar">&times;</button>
+  </div>
+  <div class="cd-body" id="cdBody"></div>
+  <div class="cd-foot" id="cdFoot">
+    <div class="cd-total"><span>Total</span><strong id="cdTotal">R$ 0,00</strong></div>
+    <a class="cd-wa" id="cdWa" target="_blank">
+      <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.04 4C9.93 4 4.97 8.96 4.97 15.07c0 1.95.51 3.86 1.48 5.55L4.9 28l7.56-1.98a11.03 11.03 0 0 0 3.57.59h.01c6.11 0 11.07-4.96 11.07-11.07S22.15 4 16.04 4zm0 20.27h-.01a9.2 9.2 0 0 1-4.68-1.28l-.34-.2-3.48.91.93-3.39-.22-.35a9.16 9.16 0 0 1-1.41-4.89c0-5.08 4.13-9.21 9.22-9.21 2.46 0 4.78.96 6.52 2.7a9.16 9.16 0 0 1 2.7 6.52c0 5.08-4.13 9.21-9.22 9.21zm5.05-6.9c-.28-.14-1.64-.81-1.89-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.21-.6.07-.28-.14-1.17-.43-2.23-1.38-.82-.74-1.38-1.64-1.54-1.92-.16-.28-.02-.43.12-.57.12-.12.28-.32.41-.48.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.47-.62-.48l-.53-.01c-.18 0-.48.07-.73.35-.25.28-.96.94-.96 2.3s.98 2.66 1.12 2.85c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.56.58.66.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z"/></svg>
+      Finalizar pedido no WhatsApp
+    </a>
+    <p class="cd-note">Você será levado ao WhatsApp com seu pedido pronto.</p>
+  </div>
+</aside>
+
+<script>
+// ===== CATÁLOGO =====
+const P=[
+  {img:'t6',cat:'tshirt',name:'Tee Oversized THESAINT Print',price:179,tag:'Novo'},
+  {img:'t3',cat:'tshirt',name:'Camisa Tsubasa Captain Print',price:229,tag:'Novo'},
+  {img:'n2',cat:'jeans',name:'Baggy Denim Pants Curve Line',price:349,tag:'Novo'},
+  {img:'t2',cat:'tshirt',name:'Manga Longa Anime Print',price:239,tag:'Novo'},
+  {img:'n4',cat:'jeans',name:'Wide Jeans Time Travel',price:369,tag:'Novo'},
+  {img:'n3',cat:'jeans',name:'Barrel Jeans Crossed',price:359,tag:'Novo'},
+  {img:'t1',cat:'tshirt',name:'Polo Football Nankatsu',price:199,tag:'Hot'},
+  {img:'n6',cat:'short',name:'Beachshort Nylon Solid',price:169,tag:'Hot'},
+  {img:'n7',cat:'short',name:'Bermuda Tecno Black',price:179,tag:'Novo'},
+  {img:'n8',cat:'short',name:'Shorts Comfort Grey',price:159,old:159,sale:119},
+  {img:'t5',cat:'tshirt',name:'Muscle Tee Orbit Wash',price:159,old:159,sale:119},
+  {img:'n11',cat:'jeans',name:'Barrel Jeans Dark Wash',price:359,old:359,sale:269},
+  {img:'n10',cat:'jeans',name:'Baggy Denim Back Logo',price:349,old:349,sale:262},
+  {img:'t7',cat:'tshirt',name:'Tee Essential Heavy Olive',price:149,old:149,sale:104},
+  {img:'n4',cat:'jeans',name:'Wide Jeans Indigo Light',price:369,tag:'Hot'},
+  {img:'t6',cat:'tshirt',name:'Tee THESAINT Washed Grey',price:179,old:179,sale:125},
+];
+
+function fmt(n){return 'R$ '+n.toFixed(2).replace('.',',')}
+function card(p){
+  const price = p.sale
+    ? `<div class="price">${fmt(p.sale)} <span class="old">${fmt(p.old)}</span></div>`
+    : `<div class="price">${fmt(p.price)}</div>`;
+  const tag = p.sale ? `<span class="tag sale">-${Math.round((1-p.sale/p.old)*100)}%</span>`
+            : p.tag ? `<span class="tag">${p.tag}</span>` : '';
+  const i = P.indexOf(p);
+  return `<div class="card" data-cat="${p.cat}" onclick="openProd(${i})">
+    <div class="ph">${tag}<img src="assets/img/${p.img}.jpg" alt="">
+      <div class="add" onclick="openProd(${i});event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Escolher opções</div>
+    </div>
+    <div class="info"><div class="ct">${p.cat}</div><h3>${p.name}</h3>${price}</div>
+  </div>`;
+}
+// render: novidades (tag Novo/Hot), top (mix), sale (com old)
+const listNew = P.filter(p=>p.tag).slice(0,8);
+const listTop = P.slice(0,8);
+const listSale = P.filter(p=>p.sale).slice(0,8);
+document.getElementById('gridNew').innerHTML = listNew.map(card).join('');
+document.getElementById('gridTop').innerHTML = listTop.map(card).join('');
+document.getElementById('gridSale').innerHTML = listSale.map(card).join('');
+
+// strip text
+const txt='DRIP COMPANY ★ INTEGRE SEUS CRIATIVOS ★ STREETWEAR ★ EDIÇÃO LIMITADA ★ ';
+document.getElementById('strip').innerHTML='<span>'+txt.repeat(4)+'</span><span>'+txt.repeat(4)+'</span>';
+
+// ===== PRODUCT QUICK VIEW =====
+const SIZES=['PP','P','M','G','GG','XGG'];
+const COLORS=['BLACK'];
+let pmState={i:null,size:null,color:'BLACK'};
+
+function skuOf(i){return '14.01.03.'+String(100+i*7).padStart(3,'0')+'.002.60';}
+
+function openProd(i){
+  const p=P[i];
+  pmState={i,size:null,color:'BLACK'};
+  const price = p.sale
+    ? `${fmt(p.sale)} <span class="old">${fmt(p.old)}</span>`
+    : fmt(p.price);
+  // XGG marcado como esgotado (igual THESAINT) só pra demo visual
+  const sizesHtml=SIZES.map(s=>{
+    const off = s==='XGG';
+    return `<button class="pm-sz${off?' off':''}" ${off?'disabled':`onclick="pickSize('${s}',this)"`}>${s}</button>`;
+  }).join('');
+  const colorsHtml=COLORS.map((c,ci)=>`<button class="pm-cl${ci===0?' on':''}" onclick="pickColor('${c}',this)">${c}</button>`).join('');
+  document.getElementById('pmBox').innerHTML=`
+    <div class="pm-img"><img src="assets/img/${p.img}.jpg" alt=""></div>
+    <div class="pm-info">
+      <button class="pm-x" onclick="closeProd()" aria-label="Fechar">&times;</button>
+      <div class="pm-sku">SKU: ${skuOf(i)}</div>
+      <div class="pm-name">${p.name}</div>
+      <div class="pm-price">${price}</div>
+      <div class="pm-lbl">Tamanho</div>
+      <div class="pm-sizes">${sizesHtml}</div>
+      <div class="pm-lbl">Cor</div>
+      <div class="pm-colors">${colorsHtml}</div>
+      <button class="pm-add" onclick="addFromModal()">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        Adicionar ao carrinho
+      </button>
+      <div class="pm-warn" id="pmWarn"></div>
+      <div class="pm-perks">
+        <div class="pm-perk"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><polyline points="3 4 3 9 8 9"/></svg><span>Primeira<br>Troca Grátis</span></div>
+        <div class="pm-perk"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><span>Frete Grátis<br>acima de R$499</span></div>
+      </div>
+    </div>`;
+  document.getElementById('pmOv').classList.add('show');
+}
+function closeProd(){document.getElementById('pmOv').classList.remove('show');}
+function pickSize(s,el){pmState.size=s;document.querySelectorAll('.pm-sz').forEach(b=>b.classList.remove('on'));el.classList.add('on');document.getElementById('pmWarn').textContent='';}
+function pickColor(c,el){pmState.color=c;document.querySelectorAll('.pm-cl').forEach(b=>b.classList.remove('on'));el.classList.add('on');}
+function addFromModal(){
+  if(!pmState.size){document.getElementById('pmWarn').textContent='Selecione um tamanho.';return;}
+  addCartKey(pmState.i,pmState.size,pmState.color);
+  closeProd();
+  const t=document.getElementById('toast');t.classList.add('show');
+  clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),1600);
+  openCart();
+}
+
+// ===== CARRINHO FUNCIONAL =====
+const WA_NUM='5516981265269';
+let cart={}; // {"i|size|color": qty}
+
+function priceOf(p){return p.sale||p.price;}
+function keyParts(k){const [i,size,color]=k.split('|');return {i:+i,size,color};}
+
+function addCartKey(i,size,color){
+  const k=`${i}|${size}|${color}`;
+  cart[k]=(cart[k]||0)+1;
+  renderCart();
+}
+function changeQty(k,d){
+  cart[k]=(cart[k]||0)+d;
+  if(cart[k]<=0)delete cart[k];
+  renderCart();
+}
+function removeItem(k){delete cart[k];renderCart();}
+
+function cartCount(){return Object.values(cart).reduce((a,b)=>a+b,0);}
+function cartTotal(){return Object.entries(cart).reduce((s,[k,q])=>s+priceOf(P[keyParts(k).i])*q,0);}
+
+function renderCart(){
+  document.getElementById('cartCount').textContent=cartCount();
+  const body=document.getElementById('cdBody');
+  const foot=document.getElementById('cdFoot');
+  const items=Object.entries(cart);
+  if(!items.length){
+    body.innerHTML='<div class="cd-empty">Seu carrinho está vazio.<br>Adicione peças pra finalizar pelo WhatsApp.</div>';
+    foot.classList.add('hide');return;
+  }
+  foot.classList.remove('hide');
+  body.innerHTML=items.map(([k,q])=>{
+    const {i,size,color}=keyParts(k);const p=P[i];
+    return `<div class="cd-item">
+      <img src="assets/img/${p.img}.jpg" alt="">
+      <div class="cd-it-info">
+        <div class="ct">${p.cat} • ${size} • ${color}</div>
+        <h4>${p.name}</h4>
+        <div class="pr">${fmt(priceOf(p))}</div>
+        <div class="cd-qty">
+          <button onclick="changeQty('${k}',-1)">−</button>
+          <span>${q}</span>
+          <button onclick="changeQty('${k}',1)">+</button>
+          <button class="cd-rm" onclick="removeItem('${k}')">remover</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('cdTotal').textContent=fmt(cartTotal());
+  // monta mensagem do WhatsApp
+  let msg='Olá! Quero fazer um pedido na Drip Company:%0A%0A';
+  items.forEach(([k,q])=>{const {i,size,color}=keyParts(k);const p=P[i];msg+=`• ${q}x ${p.name} (${size}/${color}) — ${fmt(priceOf(p)*q)}%0A`;});
+  msg+=`%0A*Total: ${fmt(cartTotal())}*%0A%0APode confirmar disponibilidade e formas de pagamento?`;
+  document.getElementById('cdWa').href=`https://wa.me/${WA_NUM}?text=${msg}`;
+}
+
+function openCart(){document.getElementById('cartDrawer').classList.add('show');document.getElementById('cartOverlay').classList.add('show');}
+function closeCart(){document.getElementById('cartDrawer').classList.remove('show');document.getElementById('cartOverlay').classList.remove('show');}
+renderCart();
+
+// fechar modal/carrinho com ESC
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeProd();closeCart();}});
+
+// category filter (filtra todos os grids visíveis)
+document.querySelectorAll('.cat-pill').forEach(p=>p.onclick=()=>{
+  document.querySelector('.cat-pill.on')?.classList.remove('on');p.classList.add('on');
+  const c=p.dataset.c;
+  document.querySelectorAll('.card').forEach(card=>{
+    card.style.display = (c==='all'||card.dataset.cat===c)?'':'none';
+  });
+});
+
+// ===== SCROLL REVEAL (animação ao rolar) =====
+(function(){
+  // marca elementos pra revelar
+  document.querySelectorAll('.sec-head, .edito, .collab, .feats-row').forEach(el=>el.classList.add('reveal'));
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  // cards aparecem em cascata
+  document.querySelectorAll('.grid').forEach(grid=>{
+    const cards=[...grid.children];
+    const gio=new IntersectionObserver((ents)=>{
+      ents.forEach(en=>{
+        if(en.isIntersecting){
+          cards.forEach((c,idx)=>setTimeout(()=>c.classList.add('in'),idx*70));
+          gio.unobserve(en.target);
+        }
+      });
+    },{threshold:.08});
+    gio.observe(grid);
+  });
+})();
+</script>
+</body>
+</html>

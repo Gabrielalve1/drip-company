@@ -1,0 +1,11 @@
+*-standalone.html
+.env*
+.env.git
+_*.png
+_*.py
+_imgtest.jpg
+_sizetest.txt
+logo-gen.png
+node_modules/
+assets/img/brand_raw.mp4
+assets/img/brand.mp4
